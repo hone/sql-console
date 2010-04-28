@@ -19,7 +19,7 @@ class SqlQuery < Sinatra::Base
         columns.collect { |column| row[column] }
       end
 
-      Table(:data => data, :column_names => data).as(:text, :ignore_table_width => true)
+      Table(:data => data, :column_names => columns).as(:text, :ignore_table_width => true)
 
     rescue Sequel::DatabaseError => ex
       ex.message
