@@ -22,7 +22,7 @@ class SqlQuery < Sinatra::Base
       if columns.length > 0
         Table(:data => data, :column_names => columns).as(:text, :ignore_table_width => true)
       else
-        ""
+        "OK"
       end
 
     rescue Sequel::DatabaseError => ex
