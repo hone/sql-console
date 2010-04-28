@@ -14,6 +14,6 @@ class SqlQuery < Sinatra::Base
       columns.collect {|column| row[column] }
     end
 
-    Table(:data => data, :column_names => columns, :ignore_table_width => true).to_s
+    Table(:data => data, :column_names => columns).as(:text, :ignore_table_width => true)
   end
 end
