@@ -19,7 +19,11 @@ class SqlQuery < Sinatra::Base
         columns.collect { |column| row[column] }
       end
 
-      Table(:data => data, :column_names => columns).as(:text, :ignore_table_width => true)
+      if columns.length > 0
+        Table(:data => data, :column_names => columns).as(:text, :ignore_table_width => true)
+      else
+        ""
+      end
 
     rescue Sequel::DatabaseError => ex
       ex.message
