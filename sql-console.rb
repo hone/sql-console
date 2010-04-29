@@ -5,7 +5,7 @@ require 'sinatra/base'
 require 'sequel'
 require 'ruport'
 
-class SqlQuery < Sinatra::Base
+class SqlConsole < Sinatra::Base
   get '/query' do
     "Please upgrade your sql-console plugin"
   end

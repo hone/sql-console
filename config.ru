@@ -1,3 +1,3 @@
-require 'sql-query'
+require 'sql-console'
 
-run SqlQuery
+run SqlConsole
