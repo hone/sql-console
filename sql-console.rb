@@ -13,13 +13,21 @@ class SqlConsole < Sinatra::Base
   post '/query' do
     begin
       db      = Sequel.connect(params[:database_url])
-      query   = db[params[:sql]]
 
-      rows    = query.all
-      columns = query.columns
+      columns = []
+      data    = []
 
-      data = rows.collect do |row|
-        columns.collect { |column| row[column] }
+      if /^\s*show tables\s*$/i =~ params[:sql]
+        columns = [:table_name]
+        data = db.tables.collect {|table| [table.to_s] }
+      else
+        query   = db[params[:sql]]
+        rows    = query.all
+        columns = query.columns
+
+        data = rows.collect do |row|
+          columns.collect { |column| row[column] }
+        end
       end
 
       if columns.length > 0
