@@ -19,7 +19,7 @@ class SqlConsole < Sinatra::Base
 
       if /^\s*show tables\s*$/i =~ params[:sql]
         columns = [:table_name]
-        data    = db.tables.collect {|table| [table.to_s] }
+        data    = db.tables.collect {|table| table.to_s }.sort.collect {|table| [table] }
       elsif match_data = params[:sql].match(/^\s*describe (\w+)\s*/)
         schema  = db.schema(match_data[1])
         begin
