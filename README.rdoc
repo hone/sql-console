@@ -1,0 +1,11 @@
+= Sinatra SQL Console
+
+Sinatra app that accepts database credentials, executes SQL queries on that database, and returning the results in table format.
+
+== License
+
+Please see MIT-LICENSE for more details.
+
+== Copyright
+
+Copyright (c) 2010 David Dollar, Terence Lee.
