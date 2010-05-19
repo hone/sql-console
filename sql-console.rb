@@ -35,6 +35,19 @@ class SqlConsole < Sinatra::Base
         rescue Sequel::Error
           "Not a valid table name"
         end
+      elsif match_data = params[:sql].match(/^\s*psql describe (\w+)\s*$/)
+        if db.tables.collect {|table| table.to_s }.sort.collect {|table| [table] }.include?(match_data[1])
+          require 'uri'
+
+          url = URI.parse(params[:database_url])
+          database = url.path.slice(1, url.path.size)
+
+          ENV['PGPASSWORD'] = url.password
+
+          `psql --host #{url.host} --username=#{url.user} #{database} -c '\d #{match_data[1]}'`
+        else
+          "Not a valid table name"
+        end
       else
         query   = db[params[:sql]]
         rows    = query.all
